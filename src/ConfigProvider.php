@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Cms;
+namespace MicroIceCms;
 
 /**
  * The configuration provider for the Cms module
@@ -22,6 +22,7 @@ class ConfigProvider
         return [
             'dependencies' => $this->getDependencies(),
             'templates'    => $this->getTemplates(),
+            'micro-ice-db' => $this->getDbConnection(),
         ];
     }
 
@@ -45,7 +46,27 @@ class ConfigProvider
     {
         return [
             'paths' => [
-                'cms'    => [__DIR__ . '/../templates/'],
+                'micro-ice-cms'    => [__DIR__ . '/../templates/'],
+            ],
+        ];
+    }
+    
+    /**
+     * Returns the templates configuration
+     */
+    public function getDbConnection() : array
+    {
+        return [
+            '_default' => [     
+            ],
+             'v1' => [
+                'driver'            => 'Pdo',
+                'dsn'               => 'mysql:dbname=microice_cms;host=localhost',
+                'driver_options'    => array(
+                    \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+                ),
+                'username'          => 'repkit',
+                'password'          => '******'
             ],
         ];
     }
