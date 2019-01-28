@@ -35,6 +35,9 @@ class ConfigProvider
             'invokables' => [
             ],
             'factories'  => [
+                V1\DbAdapter::class => V1\DbAdapterFactory::class,
+                V1\Rest\Pages\Repository\PagesModel::class => V1\Rest\Pages\Repository\PagesModelFactory::class,
+                V1\Rest\Pages\RequestHandler\Pages::class => V1\Rest\Pages\RequestHandler\PagesFactory::class,
             ],
         ];
     }
@@ -57,17 +60,29 @@ class ConfigProvider
     public function getDbConnection() : array
     {
         return [
-            '_default' => [     
+            'connection' => [
+                '_default' => [
+                    // default db connection goes here
+                ],
+                'v1' => [
+                    'driver'            => 'Pdo',
+                    'dsn'               => 'mysql:dbname=microice_cms;host=localhost',
+                    'driver_options'    => array(
+                        \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+                    ),
+                    'username'          => 'repkit',
+                    'password'          => '******'
+                ],
             ],
-             'v1' => [
-                'driver'            => 'Pdo',
-                'dsn'               => 'mysql:dbname=microice_cms;host=localhost',
-                'driver_options'    => array(
-                    \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-                ),
-                'username'          => 'repkit',
-                'password'          => '******'
-            ],
+            'options' => [
+                'v1' => [
+                    'table_prefix' => 'xilem_v1_',
+                    'general_features' => [
+                        /* feature that will be gathered from container */
+                        // Zend\Db\TableGateway\Feature\EventFeature::class
+                    ],
+                ]
+            ]
         ];
     }
 }

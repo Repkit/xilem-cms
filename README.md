@@ -40,8 +40,9 @@ Database connection
 - db connection can be configured by version under version key (ex: v1)
 - db connection can be set also general using _default key
 - first adapter check for version specified config and if fails goes to _default
-Db connection params are:
+Db connection params
 ---
+https://zendframework.github.io/zend-db/adapter/#creating-an-adapter-using-dependency-injection
 - driver	required	Mysqli, Sqlsrv, Pdo_Sqlite, Pdo_Mysql, Pdo(= Other PDO Driver)
 - database	generally required	the name of the database (schema)
 - username	generally required	the connection username
