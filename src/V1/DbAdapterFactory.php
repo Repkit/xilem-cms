@@ -12,6 +12,7 @@ class DbAdapterFactory
 {
     public function __invoke(ContainerInterface $container) : DbAdapter
     {
+        // $config = $container->has('config') ? $container->get('config') : [];
         $driver = $container->get('config')['micro-ice-db']['connection']['v1'];
         
         if(empty($driver)){
